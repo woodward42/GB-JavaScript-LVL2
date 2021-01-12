@@ -21,6 +21,8 @@ const renderProduct = (product) => {
 
 //функция отрисовки всех товаров и добавления их в DOM в div с классом products
 const renderProductsList = productsList => {
+
+    //метод map возвращает новый массив, каждый элемент productsList передаётся в ф-ю renderProduct и там распарсится в вёрстку
     const productsElements = productsList.map(item => renderProduct(item)).join(' ')
     document.querySelector('.products').innerHTML = productsElements
 }
