@@ -29,3 +29,4 @@ const renderProductsList = productsList => {
 }
 
 renderProductsList(products);
+//тест коммита в другой ветеке
