@@ -8,6 +8,7 @@ const products = [
     { id:6, productTitle:'Windows10', productPrice:2100, productImg: 'https://cdn.svyaznoy.ru/upload/iblock/0c141c003af85283980dc428b7afb935/1.jpg' },
     { id:7, productTitle:'MSOffice', productPrice:1700, productImg: 'https://cdn.svyaznoy.ru/upload/iblock/0c141c003af85283980dc428b7afb935/1.jpg' },
     { id:8, productTitle:'USBDrive', productPrice:178, productImg: 'https://cdn.svyaznoy.ru/upload/iblock/0c141c003af85283980dc428b7afb935/1.jpg' },
+    { id:9, productTitle:'USBDrive', productPrice:178, productImg: 'https://cdn.svyaznoy.ru/upload/iblock/0c141c003af85283980dc428b7afb935/1.jpg' },
 ]
 
 //функция возврата шаблонной строки для отрисовки одного товара
@@ -23,8 +24,8 @@ const renderProduct = (product) => {
 const renderProductsList = productsList => {
 
     //метод map возвращает новый массив, каждый элемент productsList передаётся в ф-ю renderProduct и там распарсится в вёрстку
-    const productsElements = productsList.map(item => renderProduct(item)).join(' ')
-    document.querySelector('.products').innerHTML = productsElements
+    const productsElements = productsList.map(item => renderProduct(item)).join(' ');
+            document.querySelector('.products').innerHTML = productsElements;
 }
 
 renderProductsList(products);
