@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XHR_to_Promise</title>
+</head>
+<body>
+ 
+<script>
+
+//xhr для дз
+let getDataXHR = (url, cb) => {
+    let xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4){
+                if (xhr.status !== 200){
+                    console.log('xhr error, status !== 200')
+                }
+                else {
+                    cb(xhr.responseText)
+                }
+            }
+        }
+        xhr.send()
+}
+const xhrUrl = 'https://raw.githubusercontent.com/woodward42/online-store-api/master/responses/catalogData.json'
+getDataXHR( xhrUrl, data => console.log(`From getDataXHR:`,JSON.parse(data)) )
+
+//теперь то же самое, но в Promise
+let getDataPromise = (url) => {
+    return new Promise((resolve,reject) => {
+
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4){
+                if (xhr.status !== 200){
+                    reject(console.log('...rejected from Promise'))
+                }
+                else {
+                    resolve(console.log(`From getDataPromise:`,JSON.parse(xhr.responseText)))
+                }
+            }
+        }
+        xhr.send()  
+    })
+}
+getDataPromise(xhrUrl)
+  
+</script>
+</body>
+</html>
