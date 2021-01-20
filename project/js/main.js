@@ -60,61 +60,18 @@ class Product {
 }
 
 
-/* class ProductsList {
-    constructor(container = '.products', type = 'catalog'){
-        this.data = []  //данные, получаемые с сервера fetch'em
-        this.products = []  //массив отрисованных на странице товаров
-        this.container = document.querySelector(container)
-        this.type = type;
-
-        this._fetchData().then(() => this._renderProductsList())
-    }
-
-    _fetchData(){
-        return fetch(`${API}/catalogData.json`)
-                .then(resp => resp.json())
-                .then(data => {
-                    this.data = data
-                    for (let item of this.data){
-                        const product = new Product(item, this.type)   //создали инстанс
-                        this.products.push(product) //добавили в массив
-                    }
-                })
-    }
-
-    _renderProductsList(){
-        for (let product of this.products){
-            if (!this.isRendered){
-                this.container.insertAdjacentHTML('beforeend', product.renderProduct()) //вставили в DOM дерево в контейнер
-            }
-            else continue;
-        }
-    }
-
-    getProductsTotalPrice(){
-        return this.data.reduce((sum,item) => sum + item.price, 0)
-        
-    }
-} */
-
 //создаем общий класс, от которого будут наследоваться классы список товаров и список корзины
 class List {
-    constructor(container, type, url, basket = null){   //добавил параметр и свойство для корзины, чтобы передать её, как вы писали в прошлом ревью, как передать непонятно)
+    constructor(container, type, url, cart = null){   //добавил параметр и свойство для корзины, чтобы передать её, как вы писали в прошлом ревью, как передать непонятно)
 
         this.container = document.querySelector(container)
         this.type = type
         this.url = `${API}${url}`
-        this.basket = basket
+        this.cart = cart
         this.data = []
         this.products = []
         this._fetchData().then(() => this._renderProductsList())
     }
-
-    /* _listLog(){
-        console.log(this.container)
-        console.log(this.type)
-        console.log(this.url)
-    } */
 
     _fetchData(){
         return fetch(this.url)
@@ -140,8 +97,8 @@ class List {
 
 //создаем класс список товаров каталога
 class ProductsList extends List{
-    constructor(container = '.products', type = 'catalog', url = '/catalogData.json', basket){
-        super(container, type, url, basket)
+    constructor(container = '.products', type = 'catalog', url = '/catalogData.json', cart){
+        super(container, type, url, cart)
     }
 }
 
