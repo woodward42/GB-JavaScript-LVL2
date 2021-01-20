@@ -155,12 +155,6 @@ class Cart extends List{
 const cart = new Cart()
 const productsList = new ProductsList(cart)
 
-let newProd = {
-    product_id: 456,
-    product_title: "Мышка",
-    product_price: 1000,
-    product_image: "https://cdn.svyaznoy.ru/upload/iblock/0c141c003af85283980dc428b7afb935/1.jpg"
-}
 
 
 
