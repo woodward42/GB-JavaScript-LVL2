@@ -1,13 +1,6 @@
 //ссылка на api фейковой БД
 const API = 'https://raw.githubusercontent.com/woodward42/online-store-api/master/responses';
 
-//обработчик клика по иконке корзины, чтобы показать/скрыть список товаров корзины
-const cartProducts = document.querySelector('.cart-products')
-      document.querySelector('.cart-btn').addEventListener('click', () => {
-          cartProducts.classList.toggle('shown')
-      })
-
-
 //универсальный класс товара, рендерится разная вёрстка, в зависимости от переданного из родителя (ProductsList или CartList) типа
 class Product {
     constructor(product, type) {
@@ -49,28 +42,27 @@ class Product {
 
         //функция рендера товара корзины
         function createCartProduct(item){
-            return `<div class="cart-product-item" id="${item.product_id}">
+            return `<div class="cart-product-item" data-id="${item.product_id}">
                         <h3 class="cart-product-title">${item.product_title}</h3>
                         <img class="cart-product-img" src="${item.product_image}" alt="img" width="100">
                         <button class="cart-product-remove-btn" name="remove" data-id="${item.product_id}">Х</button>
-                        <p class="cart-product-price">Количество:</p>
+                        <p class="cart-product-quantity">Количество: ${item.quantity}</p>
+                        <p class="cart-product-price">Цена: $ ${item.product_price * item.quantity}</p>
                     </div>`
         }
         
     }
 }
 
-
 //создаем общий класс, от которого будут наследоваться классы список товаров и список корзины
 class List {
-    constructor(cart = null, container, type, url){   //добавил параметр и свойство для корзины, чтобы передать её, как вы писали в прошлом ревью, как передать непонятно)
+    static API = 'https://raw.githubusercontent.com/woodward42/online-store-api/master/responses';
 
+    constructor(container, type, url){   //добавил параметр и свойство для корзины, чтобы передать её, как вы писали в прошлом ревью, как передать непонятно)
         this.container = document.querySelector(container)
         this.type = type
         this.url = `${API}${url}`
-        this.cart = cart
         this.data = []
-        this.products = []
         this._fetchData()
             .then(() => this._renderProductsList())
             .then(() => {       //если это каталог, то добавляем обработчик добавления товара на кнопки каталога
@@ -88,21 +80,18 @@ class List {
                 .then(resp => resp.json())
                 .then(data => {
                     this.data = data
-                    for (let item of this.data){
-                        const product = new Product(item, this.type)   //создали инстанс
-                        this.products.push(product) //добавили в массив
-                    }
                 })
     }
 
     _renderProductsList(){  //я переписал этот метод, потому что у меня не получилось без перерендера при добавлении товара корректно отрисовать корзину
         let htmlString = ''
-        for (let product of this.products){
-            
-            if (!this.isRendered){
-                htmlString += product.renderProduct() //вставили в DOM дерево в контейнер
+        for (let item of this.data){
+            let product = new Product(item, this.type) 
+
+            if (this.isRendered){
+                continue     
             }
-            else continue;
+            htmlString += product.renderProduct() //вставили в DOM дерево в контейнер
         }
         this.container.innerHTML = htmlString
     }
@@ -111,7 +100,9 @@ class List {
 //создаем класс список товаров каталога
 class ProductsList extends List{
     constructor(cart, container = '.products', type = 'catalog', url = '/catalogData.json'){
-        super(cart, container, type, url)
+        super(container, type, url)
+        this.cart = cart
+        this.url = List.API + url
     }
 
     //функция аналогичная функции в корзине, вызывать её попробую после рендера в родительском классе List
@@ -128,7 +119,7 @@ class ProductsList extends List{
                     product_image: newItemData.image,
                 }
 
-                this.cart.add(newItemToAdd)
+                this.cart.addItem(newItemToAdd)
             }
             
         })
@@ -137,41 +128,70 @@ class ProductsList extends List{
 
 //создаем класс список товаров корзины, я сделал json, где 1 товар
 class Cart extends List{
-    constructor(cart, container = '.cart-products', type = 'cart', url = '/cartData.json'){
-        super(cart, container, type, url)
+    constructor(container = '.cart-products', type = 'cart', url = '/cartData.json'){
+        super(container, type, url)
+        this.url = List.API + url
     }
  
     _addCartListeners(){
-        this.container.addEventListener('click', evt => {   //обработчик вешаем на контейнер, клики поймаем через вспылтие
+        this.container.addEventListener('click', evt => {  
             
-            //если кликнули по кнопке - заберем из дата атрибута id и отдадим в метод remove
+            
             if (evt.target.name === 'remove'){
-                this._remove(evt.target.dataset.id)
+                this._removeItem(evt.target.dataset.id)
+                this._updateItem(evt.target.dataset.id)
             }
             
         })
+
+        const cartProducts = document.querySelector(`.${this.container.className}`) 
+        
+              document.querySelector('.cart-btn').addEventListener('click', () => {
+                cartProducts.classList.toggle('shown')
+              }) 
     }
 
-    add(item){
-        this.data.push(item)
-        this.products.push(new Product(item,'cart'))
+    addItem(item){
+        let find = this.data.find(el => el.product_id == item.product_id);
+
+        if (find){
+            find["quantity"]++
+        }
+        else {
+            this.data.push(Object.assign(item, {quantity: 1}))
+        }
         this._renderProductsList()
     }
-    _remove(id){
-        //находим в каждом из массивов по id элемент, который надо удалить
-        let productToDeleteFromData = this.data.find(item => item.product_id == id)
-        let productToDeleteFromProducts = this.products.find(item => item.id == id)
-
-        //удаляем 1 элемент с найденной позиции в каждом из массивов
-        this.data.splice(this.data.indexOf(productToDeleteFromData), 1)
-        this.products.splice(this.products.indexOf(productToDeleteFromProducts), 1)
-
-        //перерендер корзины
-        this._renderProductsList()
+    _removeItem(id){
+        let find = this.data.find(item => item.product_id == id)
+        
+        if (find.quantity > 1){
+            find["quantity"]--
+        }
+        else {
+            //удаляем 1 элемент с найденной позиции в каждом из массивов
+            this.data.splice(this.data.indexOf(find), 1)
+        }
+        //this._renderProductsList()
     }
+
+    _updateItem(id){
+        let find = this.data.find(item => item.product_id == id)
+
+            const elem = document.querySelector(`.cart-product-item[data-id="${find["product_id"]}"]`)
+                elem.querySelector('.cart-product-quantity').textContent = `Количество: ${find["quantity"]}`  //криво, но ушёл от перерендера 
+                elem.querySelector('.cart-product-price').textContent = `Цена: $ ${find["product_price"] * find["quantity"]}`
+        
+    }
+
 }
 
 
 //const pl = new ProductsList();
 const cart = new Cart()
 const productsList = new ProductsList(cart)
+
+
+//переделать API
+//добавить метод json при добавлении и удалении
+//сделать удаление при 1 товаре в корзине
