@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>homework-lesson-4 (#3)</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 20px;
+			background-color: lightblue;
+		}
+		legend {
+			background-color: #000;
+			color: #fff;
+			padding: 3px 6px;
+		}
+
+		.output {
+			font: 1rem 'Fira Sans', sans-serif;
+		}
+
+		input {
+			margin: .4rem 0;
+			width: 250px;
+		}
+		
+		.my-form {
+			margin: 0;
+			padding-left: 5px;
+		}
+		
+		textarea {
+			resize: none;
+		}
+		
+		.error {
+			border: 2px solid red;
+			background-color: lightred;
+			color: red;
+		}
+	</style>
+</head>
+<body>
+<form class="my-form">
+  <fieldset>
+    <legend>Заполните поля формы</legend>
+
+    <input type="text" id="name" name="name" placeholder="Введите имя...">
+    <label for="name">Имя</label><br/>
+
+    <input type="text" id="phone" name="phone" placeholder="+7(000)000-0000">
+    <label for="phone">Телефон (в формате +7(000)000-0000</label><br/>
+
+    <input type="email" id="email" name="email" placeholder="Введите email...">
+    <label for="email">Email</label><br/>
+	
+	<textarea name="textarea" cols="33" rows="3" maxlength="50" placeholder="Введите текст"></textarea><br/>
+	
+	<button type="sumbit">Отправить форму</button>
+  </fieldset>
+</form>
+
+
+<script>
+	const myForm = document.querySelector('.my-form');
+		  window.onload = myForm.addEventListener('submit', evt => {
+			evt.preventDefault();
+			
+			let name = myForm.querySelector('input[name="name"]');
+			let nameIsCorrect = /^\D+$/i.test(name.value);
+				if (!nameIsCorrect){
+					name.classList.add('error')
+					name.value = ''
+					name.setAttribute('placeholder', 'Введите корректное имя...')
+				}
+				
+			let phone = myForm.querySelector('input[name="phone"]');
+			let phoneIsCorrect = /[\+[7|8]\(\d{3}\)\d{3}-\d{4}/.test(phone.value);
+				if (!phoneIsCorrect){
+					phone.classList.add('error')
+					phone.value = ''
+					phone.setAttribute('placeholder', 'Введите корректный телефон...')
+				}				
+			
+			let email = myForm.querySelector('input[name="email"]');
+			
+			//у меня не получилось сделать в регулярном выражении (формат1 ИЛИ формат2 ИЛИ формат3), только проверять по очереди. Как можно сделать одним регуляром?
+			let emailFirstTemplateIsCorrect = /([a-zA-Z]{6}@[a-zA-Z]{4}\.(ru$)?(com$)?)/i.test(email.value)
+			let emailSecondTemplateIsCorrect = /([a-zA-Z]{2}\.[a-zA-Z]{4}@[a-zA-Z]{4}\.(ru$)?(com$)?)/i.test(email.value)
+			let emailThirdTemplateIsCorrect = /([a-zA-Z]{2}-[a-zA-Z]{4}@[a-zA-Z]{4}\.(ru$)?(com$)?)/i.test(email.value)
+				if (!emailFirstTemplateIsCorrect || !emailSecondTemplateIsCorrect || !emailThirdTemplateIsCorrect){
+					email.classList.add('error')
+					email.value = ''
+					email.setAttribute('placeholder', 'Введите корректный email...')
+				}
+
+			let textarea = myForm.querySelector('textarea');
+				if (textarea.value.length < 30){
+					textarea.classList.add('error')
+					textarea.value = ''
+					textarea.setAttribute('placeholder', 'Длинна текста должна быть минимум 30 символов...')
+				}
+		  })
+
+</script>
+</body>
+</html>
