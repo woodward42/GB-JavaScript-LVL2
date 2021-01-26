@@ -19,6 +19,7 @@
                 </form>
                 <button class="cart-btn"><img class="cart-btn-img" src="img/cart.png" alt="cart" @click="showCart = !showCart"></button>
                 <div class="cart-products" v-show="showCart">
+                    <p class="cart-product-quantity" v-show="cart.length === 0">Товаров в корзине нет =)</p> <!-- Заглушка, когда товаров нет -->
                     <div class="cart-product-item" v-for="item of cart" :data-id="item.product_id">
                         <h3 class="cart-product-title">{{ item.product_title }}</h3>
                         <img class="cart-product-img" :src="item.product_image" alt="img" width="100">
