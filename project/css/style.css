@@ -54,6 +54,9 @@ body {
 .shown {
     display: flex;
 }
+.invisible{
+    display: none;
+}
 
 
 /* MAIN */
@@ -142,4 +145,35 @@ body {
     cursor: pointer;
     background-color:hotpink;
     outline: none;
+}
+
+
+.btn-search {
+    background-color: transparent;
+    border: none;
+    color: #fafafa;
+    font-size: 1.2em;
+    position: absolute;
+    bottom: 15px;
+    right: 0;
+}
+.btn-search:hover {
+    cursor: pointer;
+}
+.search-form{
+    position: relative;
+    margin-right: 50px;
+    display: inline-block;
+}
+.search-field:focus{
+    outline: none;
+}
+.search-field {
+    box-sizing: border-box;
+    width: 200px;
+    color: #fafafa;
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #fafafa;
 }
