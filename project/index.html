@@ -17,8 +17,15 @@
                         <i class="fas fa-search"></i>
                     </button>
                 </form>
-                <button class="cart-btn"><img class="cart-btn-img" src="img/cart.png" alt="cart"></button>
-                <div class="cart-products">
+                <button class="cart-btn"><img class="cart-btn-img" src="img/cart.png" alt="cart" @click="showCart = !showCart"></button>
+                <div class="cart-products" v-show="showCart">
+                    <div class="cart-product-item" v-for="item of cart" :data-id="item.product_id">
+                        <h3 class="cart-product-title">{{ item.product_title }}</h3>
+                        <img class="cart-product-img" :src="item.product_image" alt="img" width="100">
+                        <button class="cart-product-remove-btn" name="remove" data-id="item.product_id">Х</button>
+                        <p class="cart-product-quantity">Количество: {{ item.quantity }}</p>
+                        <p class="cart-product-price">Цена: $ {{ item.product_price * item.quantity }}</p>
+                    </div>
                 </div>
             </header>
             <main class="main">

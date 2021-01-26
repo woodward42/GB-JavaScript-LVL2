@@ -7,6 +7,7 @@ const Shop = {
             cart: [],
             catalogUrl: '/catalogData.json',
             cartUrl: '/cartData.json',
+            showCart: false,
             searchLine: '',
         }
     },
