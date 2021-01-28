@@ -38,6 +38,22 @@ const Shop = {
                         //this._renderProductsList()
                     }
                 })
+        },
+        removeItem(id){
+            this.getJson(`${this.API}/deleteFromBasket.json`)   
+                .then(data => {
+                    if (data.result){
+                        let find = this.cart.find(item => item.product_id == id)
+            
+                        if (find.quantity > 1){
+                            find["quantity"]--
+                        }
+                        else {
+                            this.cart.splice(this.cart.indexOf(find), 1)
+                        }
+                    }
+                })
+            
         }
     },
     mounted() {
