@@ -18,6 +18,7 @@ body {
     display: flex;
     justify-content: flex-end;
     align-content: center;
+    position: relative;
 }
 .cart-btn {
     width: 80px;
@@ -36,6 +37,26 @@ body {
     font-size: 24px;
     color: rgba(20, 3, 3, 0.884);
 }
+.cart-products {
+    position: absolute;
+    /* border: 2px solid red; */
+    width: 187px;
+    min-height: 400px;
+    top: 58px;
+    background-color: darkgray;
+    /* display: none; */
+    flex-direction: column;
+    align-items: center;
+    padding: 3px;
+    margin: 0;
+    
+}
+.shown {
+    display: flex;
+}
+.invisible{
+    display: none;
+}
 
 
 /* MAIN */
@@ -50,8 +71,6 @@ body {
     column-gap: 15px;
     row-gap: 20px;
     padding: 20px;
-    
-    
 }
 .product-item {
     background-image: linear-gradient(to bottom right, rgba(20, 3, 3, 0.884), rgba(79, 39, 224, 0.459));
@@ -74,5 +93,89 @@ body {
     font-size: 24px;
     margin: 0;
     padding: 5px 10px;
-    
+}
+.product-add-to-cart-btn {
+    padding: 3px 10px;
+    margin: 0 0 5px 0;
+    background: white;
+    color: gray;
+    border: 2px solid gray;
+    font-weight: bold;
+    transition: all linear 500ms;
+}
+.product-add-to-cart-btn:hover {
+    background: rgb(67, 240, 23);
+    color: black;
+    cursor: pointer;
+}
+/*  Стили для корзины   */
+/* .cart-products {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+} */
+.cart-product-item {
+    border:  1px solid green;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    background-image: linear-gradient(to bottom right, rgba(20, 3, 3, 0.884), rgba(79, 39, 224, 0.459));
+    color: wheat;
+    margin: 0 0 5px 0;
+}
+.cart-product-title {
+    margin: 0 0 5px 0;
+    width: 100%;
+}
+.cart-product-img {
+    display: block;
+    margin: 0 0 5px 0;
+}
+.cart-product-price,
+.cart-product-quantity {
+    margin: 0;
+    width: 100%;
+}
+.cart-product-remove-btn {
+    width: 25px;
+    height: 25px;
+    align-self: center;
+    margin-left: 20px;  
+    transition: background-color linear 500ms; 
+}
+.cart-product-remove-btn:hover {
+    cursor: pointer;
+    background-color:hotpink;
+    outline: none;
+}
+
+
+.btn-search {
+    background-color: transparent;
+    border: none;
+    color: #fafafa;
+    font-size: 1.2em;
+    position: absolute;
+    bottom: 15px;
+    right: 0;
+}
+.btn-search:hover {
+    cursor: pointer;
+}
+.search-form{
+    position: relative;
+    margin-right: 50px;
+    display: inline-block;
+}
+.search-field:focus{
+    outline: none;
+}
+.search-field {
+    box-sizing: border-box;
+    width: 200px;
+    color: #fafafa;
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #fafafa;
 }

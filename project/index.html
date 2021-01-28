@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,16 +7,43 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="wrapper">
-        <header class="header">
-            <h5 class="cart-title">Корзина</h5>
-            <button class="cart-btn"><img class="cart-btn-img" src="img/cart.png" alt="cart"></button>
-        </header>
-        <main class="main">
-            <div class="products"></div>
-        </main>
+    <div id="app">
+        <div class="wrapper">
+            <header class="header">
+                <h5 class="cart-title">Корзина</h5>
+                <form action="#" class="search-form">
+                    <input type="text" class="search-field" v-model="searchLine">
+                    <button class="btn-search" type="submit" @click.prevent="filterProducts">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <button class="cart-btn"><img class="cart-btn-img" src="img/cart.png" alt="cart" @click="showCart = !showCart"></button>
+                <div class="cart-products" v-show="showCart">
+                    <p class="cart-product-quantity" v-show="cart.length === 0">Товаров в корзине нет =)</p> <!-- Заглушка, когда товаров нет -->
+                    <div class="cart-product-item" v-for="item of cart" :key="item.product_id">
+                        <h3 class="cart-product-title">{{ item.product_title }}</h3>
+                        <img class="cart-product-img" :src="item.product_image" alt="img" width="100">
+                        <button class="cart-product-remove-btn" name="remove" @click="removeItem(item.product_id)">Х</button>
+                        <p class="cart-product-quantity">Количество: {{ item.quantity }}</p>
+                        <p class="cart-product-price">Цена: $ {{ item.product_price * item.quantity }}</p>
+                    </div>
+                </div>
+            </header>
+            <main class="main">
+                <div class="products">
+                    <div class="product-item" v-for="product of filtered" :key="product.product_id">
+                        <h3 class="product-title">{{ product.product_title }}</h3>
+                        <img class="product-img" :src="product.product_image" :alt="product.product_title" width="200">
+                        <p class="product-price">{{ product.product_price }}</p>
+                        <button class="product-add-to-cart-btn" @click="addItem(product)">Add to Cart</button>
+                    </div>
+                </div>
+            </main>
+        </div>
     </div>
-    <script src="js/main.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="js/vue-main.js"></script>
 </body>
 </html>
 
