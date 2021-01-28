@@ -18,19 +18,26 @@ const Shop = {
                     .then(data => data.json())
                     .catch(error => console.log(error))
         },
-        filterProducts(){   
-            /*
-            Я писал этот метод по аналогии с тем, как Вы писали его до Vue, без добавления ноде дата атрибута с id товара,
-            отфильтровать у меня не получилось, к key доступа нет или я не понял, как его получить.
-
-            Поэтому я для v-for сделал добавление дата атрибута, как было раньше, по другому нет идей даже(
-            */
+        filterProducts(){ 
             const regexp = new RegExp(this.searchLine, 'i')
 
             this.filtered = this.products.filter(product => regexp.test(product.product_title))                  
         },
-        getKey(id){
-            alert(id)
+        addItem(item){
+            this.getJson(`${this.API}/addToBasket.json`)    //добавил по аналогии с уроком
+                .then(data => {
+                    if (data.result){
+                        let find = this.cart.find(el => el.product_id == item.product_id);
+    
+                        if (find){
+                            find["quantity"]++
+                        }
+                        else {
+                            this.cart.push(Object.assign(item, {quantity: 1}))
+                        }
+                        //this._renderProductsList()
+                    }
+                })
         }
     },
     mounted() {
@@ -39,7 +46,8 @@ const Shop = {
             .then(products => {
                 for (let item of products){
                     this.products.push(item)
-                    this.filtered.push(item)
+                    this.filtered.push(item)    
+                    //Андрей, я правильно сделал? Если мы итерируем в вёрстке filtered, то его сначала надо наполнять так же, как и products
                 }
             })
         //получаем продукты корзины

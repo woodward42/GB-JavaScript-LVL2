@@ -23,7 +23,7 @@
                     <div class="cart-product-item" v-for="item of cart" :key="item.product_id">
                         <h3 class="cart-product-title">{{ item.product_title }}</h3>
                         <img class="cart-product-img" :src="item.product_image" alt="img" width="100">
-                        <button class="cart-product-remove-btn" name="remove" @click="getKey(item.product_id)">Х</button>
+                        <button class="cart-product-remove-btn" name="remove">Х</button>
                         <p class="cart-product-quantity">Количество: {{ item.quantity }}</p>
                         <p class="cart-product-price">Цена: $ {{ item.product_price * item.quantity }}</p>
                     </div>
@@ -35,7 +35,7 @@
                         <h3 class="product-title">{{ product.product_title }}</h3>
                         <img class="product-img" :src="product.product_image" :alt="product.product_title" width="200">
                         <p class="product-price">{{ product.product_price }}</p>
-                        <button class="product-add-to-cart-btn" @click="getKey(product.product_id)">Add to Cart</button>
+                        <button class="product-add-to-cart-btn" @click="addItem(product)">Add to Cart</button>
                     </div>
                 </div>
             </main>
