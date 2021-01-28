@@ -5,6 +5,7 @@ const Shop = {
             API: 'https://raw.githubusercontent.com/woodward42/online-store-api/master/responses',
             products: [],
             cart: [],
+            filtered: [],
             catalogUrl: '/catalogData.json',
             cartUrl: '/cartData.json',
             showCart: false,
@@ -26,20 +27,10 @@ const Shop = {
             */
             const regexp = new RegExp(this.searchLine, 'i')
 
-            this.filtered = this.products.filter(product => regexp.test(product.product_title))
-            this.products.forEach(prod => {
-                const prodNode = document.querySelector(`.product-item[data-id="${prod.product_id}"]`)
-                
-                if (this.filtered.includes(prod)){
-                    prodNode.classList.remove('invisible')
-                }
-                else {
-                    prodNode.classList.add('invisible')
-                }
-            })
-
-            
-                  
+            this.filtered = this.products.filter(product => regexp.test(product.product_title))                  
+        },
+        getKey(id){
+            alert(id)
         }
     },
     mounted() {
@@ -48,6 +39,7 @@ const Shop = {
             .then(products => {
                 for (let item of products){
                     this.products.push(item)
+                    this.filtered.push(item)
                 }
             })
         //получаем продукты корзины

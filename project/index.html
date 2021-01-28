@@ -20,10 +20,10 @@
                 <button class="cart-btn"><img class="cart-btn-img" src="img/cart.png" alt="cart" @click="showCart = !showCart"></button>
                 <div class="cart-products" v-show="showCart">
                     <p class="cart-product-quantity" v-show="cart.length === 0">Товаров в корзине нет =)</p> <!-- Заглушка, когда товаров нет -->
-                    <div class="cart-product-item" v-for="item of cart" :data-id="item.product_id">
+                    <div class="cart-product-item" v-for="item of cart" :key="item.product_id">
                         <h3 class="cart-product-title">{{ item.product_title }}</h3>
                         <img class="cart-product-img" :src="item.product_image" alt="img" width="100">
-                        <button class="cart-product-remove-btn" name="remove" data-id="item.product_id">Х</button>
+                        <button class="cart-product-remove-btn" name="remove" @click="getKey(item.product_id)">Х</button>
                         <p class="cart-product-quantity">Количество: {{ item.quantity }}</p>
                         <p class="cart-product-price">Цена: $ {{ item.product_price * item.quantity }}</p>
                     </div>
@@ -31,11 +31,11 @@
             </header>
             <main class="main">
                 <div class="products">
-                    <div class="product-item" v-for="product of products" :key="product.product_id" :data-id="product.product_id">
+                    <div class="product-item" v-for="product of filtered" :key="product.product_id">
                         <h3 class="product-title">{{ product.product_title }}</h3>
                         <img class="product-img" :src="product.product_image" :alt="product.product_title" width="200">
                         <p class="product-price">{{ product.product_price }}</p>
-                        <button class="product-add-to-cart-btn">Add to Cart</button>
+                        <button class="product-add-to-cart-btn" @click="getKey(product.product_id)">Add to Cart</button>
                     </div>
                 </div>
             </main>
