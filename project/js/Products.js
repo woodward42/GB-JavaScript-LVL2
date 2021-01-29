@@ -12,7 +12,9 @@ export const Products = {
         }
     },
     methods: {
-
+        filterProducts(text){ 
+            this.filtered = this.products.filter(product => new RegExp(text, 'i').test(product.product_title))                  
+        },
     },
     mounted() {
         //получаем продукты каталога

@@ -1,16 +1,17 @@
 import {Products} from './Products.js'
 import {Cart} from './Cart.js'
+import {Search} from './Search.js'
 
 //создаем объект, который передаст настройки приложения
 const Shop = {
     components:{
         Products,
-        Cart
+        Cart,
+        Search
     },
     data(){
         return {
             API: 'https://raw.githubusercontent.com/woodward42/online-store-api/master/responses',
-            searchLine: '',
         }
     },
     methods: {
@@ -19,15 +20,7 @@ const Shop = {
                     .then(data => data.json())
                     .catch(error => console.log(error))
         },
-        filterProducts(){ 
-            const regexp = new RegExp(this.searchLine, 'i')
-
-            this.filtered = this.products.filter(product => regexp.test(product.product_title))                  
-        },
     },
-    mounted() {
-        
-    }
 };
 
 //создаем инстанс компонента Shop

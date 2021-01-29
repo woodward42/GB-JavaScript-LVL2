@@ -10,14 +10,8 @@
     <div id="app">
         <div class="wrapper">
             <header class="header">
+                <Search ref="search"></Search>
                 <h5 class="cart-title">Корзина</h5>
-                <form action="#" class="search-form">
-                    <input type="text" class="search-field" v-model="searchLine">
-                    <button class="btn-search" type="submit" @click.prevent="filterProducts">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </form>
-                
                 <Cart ref="cart"></Cart>
             </header>
             <main class="main">
