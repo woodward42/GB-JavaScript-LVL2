@@ -1,12 +1,14 @@
+import {Products} from './Products.js'
+
 //создаем объект, который передаст настройки приложения
 const Shop = {
+    components:{
+        Products
+    },
     data(){
         return {
             API: 'https://raw.githubusercontent.com/woodward42/online-store-api/master/responses',
-            products: [],
             cart: [],
-            filtered: [],
-            catalogUrl: '/catalogData.json',
             cartUrl: '/cartData.json',
             showCart: false,
             searchLine: '',
@@ -57,15 +59,6 @@ const Shop = {
         }
     },
     mounted() {
-        //получаем продукты каталога
-        this.getJson(`${this.API + this.catalogUrl}`)
-            .then(products => {
-                for (let item of products){
-                    this.products.push(item)
-                    this.filtered.push(item)    
-                    //Андрей, я правильно сделал? Если мы итерируем в вёрстке filtered, то его сначала надо наполнять так же, как и products
-                }
-            })
         //получаем продукты корзины
         this.getJson(`${this.API + this.cartUrl}`)
             .then(cartProducts => {

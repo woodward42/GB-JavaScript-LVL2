@@ -30,20 +30,13 @@
                 </div>
             </header>
             <main class="main">
-                <div class="products">
-                    <div class="product-item" v-for="product of filtered" :key="product.product_id">
-                        <h3 class="product-title">{{ product.product_title }}</h3>
-                        <img class="product-img" :src="product.product_image" :alt="product.product_title" width="200">
-                        <p class="product-price">{{ product.product_price }}</p>
-                        <button class="product-add-to-cart-btn" @click="addItem(product)">Add to Cart</button>
-                    </div>
-                </div>
+                <Products ref="catalog"></Products>
             </main>
         </div>
     </div>
     <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@next"></script>
-    <script src="js/vue-main.js"></script>
+    <script type="module" src="js/vue-main.js"></script>
 </body>
 </html>
 
