@@ -9,6 +9,14 @@
 <body>
     <div id="app">
         <div class="wrapper">
+            <!--
+                Так как у нас getJson - общий метод, я посчитал правильным завязать показывать или не показывать этот блок на 
+                булево значение, которое хранится так же в общем родительском объекте Shop
+            -->
+            <p v-show="isError">
+                <CustomError></CustomError> <!--Failed to resolve component customerror   Почему? Я так и не смог понять, почему-->
+            </p>
+            
             <header class="header">
                 <Search ref="search"></Search>
                 <h5 class="cart-title">Корзина</h5>
