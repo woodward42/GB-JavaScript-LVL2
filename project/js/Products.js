@@ -15,7 +15,6 @@ export const Products = {
 
     },
     mounted() {
-      
         //получаем продукты каталога
         this.$root.getJson(`${this.$root.API + this.catalogUrl}`)
             .then(products => {
