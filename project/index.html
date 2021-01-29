@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,16 +7,29 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="wrapper">
-        <header class="header">
-            <h5 class="cart-title">Корзина</h5>
-            <button class="cart-btn"><img class="cart-btn-img" src="img/cart.png" alt="cart"></button>
-        </header>
-        <main class="main">
-            <div class="products"></div>
-        </main>
+    <div id="app">
+        <div class="wrapper">
+            <!--
+                Так как у нас getJson - общий метод, я посчитал правильным завязать показывать или не показывать этот блок на 
+                булево значение, которое хранится так же в общем родительском объекте Shop
+            -->
+            <p v-show="isError">
+                <CustomError></CustomError> <!--Failed to resolve component customerror   Почему? Я так и не смог понять, почему-->
+            </p>
+            
+            <header class="header">
+                <Search ref="search"></Search>
+                <h5 class="cart-title">Корзина</h5>
+                <Cart ref="cart"></Cart>
+            </header>
+            <main class="main">
+                <Products ref="catalog"></Products>
+            </main>
+        </div>
     </div>
-    <script src="js/main.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script type="module" src="js/vue-main.js"></script>
 </body>
 </html>
 
