@@ -1,9 +1,16 @@
 [
     {
-        "product_id": "712",
-        "product_title": "Клавиатура",
-        "product_price": 600,
+        "product_id": "123",
+        "product_title": "Ноутбук",
+        "product_price": 45600,
         "product_image": "https://cdn.svyaznoy.ru/upload/iblock/0c141c003af85283980dc428b7afb935/1.jpg",
-        "quantity": 1
+        "quantity": 27
+    },
+    {
+        "product_id": "456",
+        "product_title": "Мышка",
+        "product_price": 1000,
+        "product_image": "https://cdn.svyaznoy.ru/upload/iblock/0c141c003af85283980dc428b7afb935/1.jpg",
+        "quantity": 2
     }
 ]

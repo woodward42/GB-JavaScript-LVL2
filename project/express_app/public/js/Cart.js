@@ -18,7 +18,7 @@ export const Cart = {
 
             //если нашли товар в корзине, то обновляем(а не добавляем)
             if (find){
-                this.putJson(`/api/cart/${find.product_id}`, {quantity: 1})
+                this.putJson(`/api/cart/${find.product_id}`, {quantity: 1, product_title: find.product_title})  //добавил название для передачи в запись лога
                     .then(data => {
                         if (data.result){
                             find.quantity++
@@ -44,7 +44,7 @@ export const Cart = {
             if (find){
                 //если нашли и товаров >1 , уменьшаем на 1
                 if (find.quantity > 1){
-                    this.putJson(`/api/cart/${find.product_id}`, {quantity: -1})
+                    this.putJson(`/api/cart/${find.product_id}`, {quantity: -1, product_title: find.product_title})
                     .then(data => {
                         if (data.result){
                             find.quantity--

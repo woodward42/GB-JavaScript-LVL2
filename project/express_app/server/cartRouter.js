@@ -1,7 +1,6 @@
 const express = require('express')
 const handler = require('./cartHandler')
 const fs = require('fs')
-
 const router = express.Router();    //новый экземпляр роутера
 
 //запрос к корзине
@@ -17,7 +16,8 @@ router.get('/', (request, response) => {
 
 //добавить в корзину, запрос по новому товару, надо преобразовать товар
 router.post('/', (request, response) => {  //товар придет в request.body
-    handler(request, response, 'add', 'server/db/userCart.json')   
+    handler(request, response, 'add', 'server/db/userCart.json')  
+    
 })
 
 //обновление, изменение кол-ва товара в корзине
