@@ -8,7 +8,6 @@ export const Products = {
         return {
             products: [],
             filtered: [],
-            catalogUrl: '/catalogData.json',
         }
     },
     methods: {
@@ -18,7 +17,7 @@ export const Products = {
     },
     mounted() {
         //получаем продукты каталога
-        this.$root.getJson(`${this.$root.API + this.catalogUrl}`)
+        this.$root.getJson('/api/products')
             .then(products => {
                 for (let item of products){
                     this.products.push(item)

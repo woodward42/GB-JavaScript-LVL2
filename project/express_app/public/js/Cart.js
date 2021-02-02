@@ -1,6 +1,7 @@
 import {CartItem} from './CartItem.js'
 
 export const Cart = {
+    inject: ['postJson', 'putJson'], //как пропсы
     components: {
         CartItem
     },
@@ -13,17 +14,26 @@ export const Cart = {
     },
     methods:{
         addItem(item){
-            this.$root.getJson(`${this.$root.API}/addToBasket.json`)    //добавил по аналогии с уроком
+            let find = this.cart.find(el => el.product_id == item.product_id);
+
+            //если нашли товар в корзине, то обновляем(а не добавляем)
+            if (find){
+                this.putJson(`/api/cart/${find.product_id}`, {quantity: 1})
+                    .then(data => {
+                        if (data.result){
+                            find.quantity++
+                        }
+                    })
+                return
+            }
+
+            //eсли не найден - post, добавляем
+            let prod = Object.assign(item, {quantity: 1})
+
+            this.postJson(`/api/cart/`, prod)
                 .then(data => {
                     if (data.result){
-                        let find = this.cart.find(el => el.product_id == item.product_id);
-    
-                        if (find){
-                            find["quantity"]++
-                        }
-                        else {
-                            this.cart.push(Object.assign(item, {quantity: 1}))
-                        }
+                        this.cart.push(prod)
                     }
                 })
         },
@@ -46,7 +56,7 @@ export const Cart = {
     },
     mounted(){
         //получаем продукты корзины
-        this.$root.getJson(`${this.$root.API + this.cartUrl}`)
+        this.$root.getJson('/api/cart')
         .then(cartProducts => {
             for (let item of cartProducts){
                 this.cart.push(item)
