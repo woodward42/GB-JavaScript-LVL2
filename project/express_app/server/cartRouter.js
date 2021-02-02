@@ -25,4 +25,9 @@ router.put('/:id', (request, response) => {
     handler(request, response, 'change', 'server/db/userCart.json')
 })
 
+//удаление товара из корзины
+router.delete('/:id', (request, response) => {  
+    handler(request, response, 'del', 'server/db/userCart.json')
+})
+
 module.exports = router;

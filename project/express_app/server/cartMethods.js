@@ -12,8 +12,16 @@ const change = (cart, request) => {
     return JSON.stringify(cart, null, 4)
 }
 
+const del = (cart, request) => {
+    const find = cart.find(el => el.product_id === request.params.id)
+    cart.splice(cart.indexOf(find), 1)
+
+    return JSON.stringify(cart, null, 4)
+}
+
 //экспортируем всё отсюда
 module.exports = {
     add,
-    change
+    change,
+    del
 }

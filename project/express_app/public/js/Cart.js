@@ -1,7 +1,7 @@
 import {CartItem} from './CartItem.js'
 
 export const Cart = {
-    inject: ['postJson', 'putJson'], //как пропсы
+    inject: ['postJson', 'putJson', 'delJson'], //как пропсы
     components: {
         CartItem
     },
@@ -38,20 +38,28 @@ export const Cart = {
                 })
         },
         removeItem(id){
-            this.$root.getJson(`${this.$root.API}/deleteFromBasket.json`)   
-                .then(data => {
-                    if (data.result){
-                        let find = this.cart.find(item => item.product_id == id)
+            let find = this.cart.find(item => item.product_id == id)
+
             
-                        if (find.quantity > 1){
-                            find["quantity"]--
+            if (find){
+                //если нашли и товаров >1 , уменьшаем на 1
+                if (find.quantity > 1){
+                    this.putJson(`/api/cart/${find.product_id}`, {quantity: -1})
+                    .then(data => {
+                        if (data.result){
+                            find.quantity--
                         }
-                        else {
+                    })
+                    return 
+                }
+                //ecли товар 1 - надо удалить
+                this.delJson(`/api/cart/${find.product_id}`)
+                    .then(data => {
+                        if (data.result){
                             this.cart.splice(this.cart.indexOf(find), 1)
                         }
-                    }
-                })
-            
+                    })
+            }            
         },
     },
     mounted(){

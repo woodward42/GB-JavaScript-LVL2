@@ -21,6 +21,7 @@ const Shop = {
         return {
             postJson: this.postJson,
             putJson: this.putJson,
+            delJson: this.delJson,
         }
     },
     methods: {
@@ -47,6 +48,16 @@ const Shop = {
                     "Content-Type":"application/json"
                 },
                 body: JSON.stringify(data)
+            })
+                    .then(data => data.json())
+                    .catch(error => this.isError = true)
+        },
+        delJson(url){
+            return fetch(url, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type":"application/json"
+                },
             })
                     .then(data => data.json())
                     .catch(error => this.isError = true)
