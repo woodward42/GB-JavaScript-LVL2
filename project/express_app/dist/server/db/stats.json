@@ -1,0 +1,51 @@
+[
+    {
+        "action_type": "add",
+        "product_title": "Клавиатура",
+        "datetime": "Tuesday, February 2, 2021 6:36 PM"
+    },
+    {
+        "action_type": "change",
+        "product_title": "Ноутбук",
+        "datetime": "Tuesday, February 2, 2021 6:52 PM"
+    },
+    {
+        "action_type": "add",
+        "product_title": "Мышка",
+        "datetime": "Tuesday, February 2, 2021 6:53 PM"
+    },
+    {
+        "action_type": "change",
+        "product_title": "Мышка",
+        "datetime": "Tuesday, February 2, 2021 6:53 PM"
+    },
+    {
+        "action_type": "change",
+        "product_title": "Мышка",
+        "datetime": "Tuesday, February 2, 2021 6:53 PM"
+    },
+    {
+        "action_type": "change",
+        "datetime": "Tuesday, February 2, 2021 6:53 PM"
+    },
+    {
+        "action_type": "change",
+        "product_title": "Ноутбук",
+        "datetime": "Tuesday, February 2, 2021 6:54 PM"
+    },
+    {
+        "action_type": "change",
+        "product_title": "Ноутбук",
+        "datetime": "Tuesday, February 2, 2021 6:55 PM"
+    },
+    {
+        "action_type": "change",
+        "product_title": "Ноутбук",
+        "datetime": "Tuesday, February 2, 2021 6:55 PM"
+    },
+    {
+        "action_type": "change",
+        "product_title": "Ноутбук",
+        "datetime": "Tuesday, February 2, 2021 6:56 PM"
+    }
+]
