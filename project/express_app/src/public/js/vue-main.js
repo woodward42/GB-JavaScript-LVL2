@@ -4,7 +4,7 @@ import {Search} from './Search.js'
 import {CustomError} from './CustomError.js'
 
 //создаем объект, который передаст настройки приложения
-const Shop = {
+export const Shop = {
     components: {
         CustomError,
         Products,
@@ -65,5 +65,3 @@ const Shop = {
     },
 };
 
-//создаем инстанс компонента Shop
-Vue.createApp(Shop).mount('#app')

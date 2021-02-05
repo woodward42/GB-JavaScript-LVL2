@@ -13,13 +13,13 @@ const moment = require('moment')
 app.use(express.json())
 
 //для подгрузки, собственно, страниц
-app.use('/', express.static('public'))
+app.use('/', express.static('dist/public'))
 
 app.use('/api/cart', cart)
 
 //запрос к каталогу
 app.get('/api/products', (request, response) => {
-    fs.readFile('server/db/products.json', (err, data) => { //data - то, что прочитали из файла
+    fs.readFile('dist/server/db/products.json', (err, data) => { //data - то, что прочитали из файла
         if (err){
             response.send({result: 0, text: err})   //сообщаем на клиент о неудаче
             return

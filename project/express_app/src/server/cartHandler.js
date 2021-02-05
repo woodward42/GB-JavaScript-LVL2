@@ -22,7 +22,7 @@ const handler = (request, response, action, file) => {
             }
         })
 
-        fs.readFile('server/db/stats.json', (err,data) => {
+        fs.readFile('dist/server/db/stats.json', (err,data) => {
             //не суперизящное решение, но я хотел давно проверить, правильно ли я понимаю Object.assign))
             let logItem = Object.assign(
                 {}, 
@@ -37,7 +37,7 @@ const handler = (request, response, action, file) => {
             //Просто пришлось бы каждый раз огромные файлы логов (допустим, там куча записей) читать и туда переписывать всё, что некруто.
             //Как сделать так: собрал объект/строку для записи, открыл файл лога, дописал туда то, что нужно? Не вышло у меня, поделитесь, пожалуйста! Спасибо
             
-            fs.writeFile('server/db/stats.json', JSON.stringify(logItems, null, 4), (err) => console.log(err))  
+            fs.writeFile('dist/server/db/stats.json', JSON.stringify(logItems, null, 4), (err) => console.log(err))  
             
         })
 

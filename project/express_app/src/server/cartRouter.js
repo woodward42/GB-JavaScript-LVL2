@@ -5,7 +5,7 @@ const router = express.Router();    //новый экземпляр роутер
 
 //запрос к корзине
 router.get('/', (request, response) => {
-    fs.readFile('server/db/userCart.json', (err, data) => {
+    fs.readFile('dist/server/db/userCart.json', (err, data) => {
         if (err){
             response.send({result: 0, text: err})
             return
@@ -16,18 +16,18 @@ router.get('/', (request, response) => {
 
 //добавить в корзину, запрос по новому товару, надо преобразовать товар
 router.post('/', (request, response) => {  //товар придет в request.body
-    handler(request, response, 'add', 'server/db/userCart.json')  
+    handler(request, response, 'add', 'dist/server/db/userCart.json')  
     
 })
 
 //обновление, изменение кол-ва товара в корзине
 router.put('/:id', (request, response) => {  
-    handler(request, response, 'change', 'server/db/userCart.json')
+    handler(request, response, 'change', 'dist/server/db/userCart.json')
 })
 
 //удаление товара из корзины
 router.delete('/:id', (request, response) => {  
-    handler(request, response, 'del', 'server/db/userCart.json')
+    handler(request, response, 'del', 'dist/server/db/userCart.json')
 })
 
 module.exports = router;
